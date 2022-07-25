@@ -1,8 +1,8 @@
 {
-  "name": "moonbeamswap",
+  "name": "fornaxswap",
   "license": "MIT",
   "version": "1.0.4",
-  "description": "🛠 An example SDK for building applications on top of Uniswap in Moonbeam.",
+  "description": "🛠 An example SDK for building applications on top of Fornaxswap in Fornax.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -12,7 +12,9 @@
   "keywords": [
     "uniswap",
     "ethereum",
-    "moonbeam"
+    "fornax",
+    "fornaxswap",
+    "fornaxswap-sdk"
   ],
   "module": "dist/sdk.esm.js",
   "scripts": {

@@ -1,5 +1,5 @@
 import JSBI from 'jsbi'
-import { ChainId, DEV, CurrencyAmount, Pair, Percent, Route, Token, TokenAmount, Trade, TradeType, WETH } from '../src'
+import { ChainId, FRX, CurrencyAmount, Pair, Percent, Route, Token, TokenAmount, Trade, TradeType, WETH } from '../src'
 
 describe('Trade', () => {
   const token0 = new Token(ChainId.MAINNET, '0x0000000000000000000000000000000000000001', 18, 't0')
@@ -20,42 +20,42 @@ describe('Trade', () => {
 
   const empty_pair_0_1 = new Pair(new TokenAmount(token0, JSBI.BigInt(0)), new TokenAmount(token1, JSBI.BigInt(0)))
 
-  it('can be constructed with DEV as input', () => {
+  it('can be constructed with FRX as input', () => {
     const trade = new Trade(
-      new Route([pair_weth_0], DEV),
+      new Route([pair_weth_0], FRX),
       CurrencyAmount.ether(JSBI.BigInt(100)),
       TradeType.EXACT_INPUT
     )
-    expect(trade.inputAmount.currency).toEqual(DEV)
+    expect(trade.inputAmount.currency).toEqual(FRX)
     expect(trade.outputAmount.currency).toEqual(token0)
   })
-  it('can be constructed with DEV as input for exact output', () => {
+  it('can be constructed with FRX as input for exact output', () => {
     const trade = new Trade(
-      new Route([pair_weth_0], DEV, token0),
+      new Route([pair_weth_0], FRX, token0),
       new TokenAmount(token0, JSBI.BigInt(100)),
       TradeType.EXACT_OUTPUT
     )
-    expect(trade.inputAmount.currency).toEqual(DEV)
+    expect(trade.inputAmount.currency).toEqual(FRX)
     expect(trade.outputAmount.currency).toEqual(token0)
   })
 
-  it('can be constructed with DEV as output', () => {
+  it('can be constructed with FRX as output', () => {
     const trade = new Trade(
-      new Route([pair_weth_0], token0, DEV),
+      new Route([pair_weth_0], token0, FRX),
       CurrencyAmount.ether(JSBI.BigInt(100)),
       TradeType.EXACT_OUTPUT
     )
     expect(trade.inputAmount.currency).toEqual(token0)
-    expect(trade.outputAmount.currency).toEqual(DEV)
+    expect(trade.outputAmount.currency).toEqual(FRX)
   })
-  it('can be constructed with DEV as output for exact input', () => {
+  it('can be constructed with FRX as output for exact input', () => {
     const trade = new Trade(
-      new Route([pair_weth_0], token0, DEV),
+      new Route([pair_weth_0], token0, FRX),
       new TokenAmount(token0, JSBI.BigInt(100)),
       TradeType.EXACT_INPUT
     )
     expect(trade.inputAmount.currency).toEqual(token0)
-    expect(trade.outputAmount.currency).toEqual(DEV)
+    expect(trade.outputAmount.currency).toEqual(FRX)
   })
 
   describe('#bestTradeExactIn', () => {
@@ -135,33 +135,33 @@ describe('Trade', () => {
       expect(result).toHaveLength(0)
     })
 
-    it('works for DEV currency input', () => {
+    it('works for FRX currency input', () => {
       const result = Trade.bestTradeExactIn(
         [pair_weth_0, pair_0_1, pair_0_3, pair_1_3],
         CurrencyAmount.ether(JSBI.BigInt(100)),
         token3
       )
       expect(result).toHaveLength(2)
-      expect(result[0].inputAmount.currency).toEqual(DEV)
+      expect(result[0].inputAmount.currency).toEqual(FRX)
       expect(result[0].route.path).toEqual([WETH[ChainId.MAINNET], token0, token1, token3])
       expect(result[0].outputAmount.currency).toEqual(token3)
-      expect(result[1].inputAmount.currency).toEqual(DEV)
+      expect(result[1].inputAmount.currency).toEqual(FRX)
       expect(result[1].route.path).toEqual([WETH[ChainId.MAINNET], token0, token3])
       expect(result[1].outputAmount.currency).toEqual(token3)
     })
-    it('works for DEV currency output', () => {
+    it('works for FRX currency output', () => {
       const result = Trade.bestTradeExactIn(
         [pair_weth_0, pair_0_1, pair_0_3, pair_1_3],
         new TokenAmount(token3, JSBI.BigInt(100)),
-        DEV
+          FRX
       )
       expect(result).toHaveLength(2)
       expect(result[0].inputAmount.currency).toEqual(token3)
       expect(result[0].route.path).toEqual([token3, token0, WETH[ChainId.MAINNET]])
-      expect(result[0].outputAmount.currency).toEqual(DEV)
+      expect(result[0].outputAmount.currency).toEqual(FRX)
       expect(result[1].inputAmount.currency).toEqual(token3)
       expect(result[1].route.path).toEqual([token3, token1, token0, WETH[ChainId.MAINNET]])
-      expect(result[1].outputAmount.currency).toEqual(DEV)
+      expect(result[1].outputAmount.currency).toEqual(FRX)
     })
   })
 
@@ -360,21 +360,21 @@ describe('Trade', () => {
       expect(result).toHaveLength(0)
     })
 
-    it('works for DEV currency input', () => {
+    it('works for FRX currency input', () => {
       const result = Trade.bestTradeExactOut(
         [pair_weth_0, pair_0_1, pair_0_3, pair_1_3],
-        DEV,
+          FRX,
         new TokenAmount(token3, JSBI.BigInt(100))
       )
       expect(result).toHaveLength(2)
-      expect(result[0].inputAmount.currency).toEqual(DEV)
+      expect(result[0].inputAmount.currency).toEqual(FRX)
       expect(result[0].route.path).toEqual([WETH[ChainId.MAINNET], token0, token1, token3])
       expect(result[0].outputAmount.currency).toEqual(token3)
-      expect(result[1].inputAmount.currency).toEqual(DEV)
+      expect(result[1].inputAmount.currency).toEqual(FRX)
       expect(result[1].route.path).toEqual([WETH[ChainId.MAINNET], token0, token3])
       expect(result[1].outputAmount.currency).toEqual(token3)
     })
-    it('works for DEV currency output', () => {
+    it('works for FRX currency output', () => {
       const result = Trade.bestTradeExactOut(
         [pair_weth_0, pair_0_1, pair_0_3, pair_1_3],
         token3,
@@ -383,10 +383,10 @@ describe('Trade', () => {
       expect(result).toHaveLength(2)
       expect(result[0].inputAmount.currency).toEqual(token3)
       expect(result[0].route.path).toEqual([token3, token0, WETH[ChainId.MAINNET]])
-      expect(result[0].outputAmount.currency).toEqual(DEV)
+      expect(result[0].outputAmount.currency).toEqual(FRX)
       expect(result[1].inputAmount.currency).toEqual(token3)
       expect(result[1].route.path).toEqual([token3, token1, token0, WETH[ChainId.MAINNET]])
-      expect(result[1].outputAmount.currency).toEqual(DEV)
+      expect(result[1].outputAmount.currency).toEqual(FRX)
     })
   })
 })

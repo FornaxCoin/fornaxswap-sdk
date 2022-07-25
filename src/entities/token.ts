@@ -57,7 +57,7 @@ export function currencyEquals(currencyA: Currency, currencyB: Currency): boolea
   }
 }
 
-export const WDEV = {
+export const WFRX = {
   [ChainId.MAINNET]: new Token(
     ChainId.MAINNET,
     '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -65,5 +65,5 @@ export const WDEV = {
     'WETH',
     'Wrapped Ether'
   ),
-  [ChainId.FORNAX]: new Token(ChainId.FORNAX, WETH, 18, 'WETH', 'Wrapped Ether')
+  [ChainId.FORNAX]: new Token(ChainId.FORNAX, WETH, 18, 'WFRX', 'Wrapped Fronax')
 }
