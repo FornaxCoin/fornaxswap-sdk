@@ -1,5 +1,5 @@
 import JSBI from 'jsbi'
-import { factory, init_code_hash } from './moonbase_address.json'
+import { factory, init_code_hash } from './fornax_address.json'
 
 // exports for external consumption
 export type BigintIsh = JSBI | bigint | string
